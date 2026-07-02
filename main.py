@@ -9,7 +9,7 @@ cur.execute("SELECT * FROM meals")
 def main():
     while True:
         print("Meal Tracker\n\n1. Add Meal\n2. List Meals\n3. Exit")
-        choice = input() # Grabs the user's choices
+        choice = input() # Grabs the user's choice
         match choice:
             case "1":
                 add_meal()
@@ -19,18 +19,18 @@ def main():
                 sys.exit()
 # Adds a meal based on a name and date given by the user
 def add_meal():
-    print("Enter the name of the meal.") 
+    print("Enter the name of the meal.")
     meal_name = input()
     print("Now, enter the date you ate it on.")
     meal_date = input()
-    sql_update_meals(meal_name, meal_date)
+    sql_update_meals(meal_name, meal_date) # Updates the SQLite DB
 def list_meals():
     cur.execute("SELECT name, date FROM meals")
     meals = cur.fetchall()
     for meal in meals:
-        print(meal)
+        print(meal) # Recursively prints meals on the list until there are none left
 def sql_update_meals(name, date):
     add_meal_query = "INSERT INTO meals (id, name, date) VALUES (?, ?, ?)"
     cur.execute(add_meal_query, (name, date))
-    con.commit()
-main()
+    con.commit() # Actually commits to the DB
+main() # Runs the program
