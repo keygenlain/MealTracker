@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 🟢 Use url_for to route to the static folder asset -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Meal Tracker</title>
+</head>
+
+<body>
+    <main class="layout">
+        <header class="hero">
+            <h1>Meal Tracker; By Laine Coulter.</h1>
+        </header>
+
+        <section class="card">
+            <h2>Add a Meal</h2>
+            <form action="{{ url_for('submit') }}" method="POST">
+                <label for="mealname">Meal Name:</label>
+                <input type="text" id="mealname" name="meal_name" required>
+                <label for="mealdate">Meal Date</label>
+                <input type="text" id="mealdate" name="meal_date" required>
+                <input type="submit" value="Create Entry">
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Meal List</h2>
+            {% if not meals %}
+            <p>No meals recorded yet!</p>
+            {% else %}
+            <ul>
+                <!-- Loop through each meal row passed from Python -->
+                {% for meal in meals %}
+                <li>
+                    <strong>{{ meal[1] }}</strong> eaten on {{ meal[2] }}
+                    <small>(ID: {{ meal[0] }})</small>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </section>
+    </main>
+</body>
+
+</html>

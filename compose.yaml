@@ -1,0 +1,17 @@
+services:
+  mealtracker:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      DB_FILE: /data/meals.db
+      PORT: "5000"
+      FLASK_DEBUG: "0"
+    volumes:
+      - mealtracker_data:/data
+    restart: unless-stopped
+
+volumes:
+  mealtracker_data:
